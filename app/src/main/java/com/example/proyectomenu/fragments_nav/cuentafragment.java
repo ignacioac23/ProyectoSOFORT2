@@ -52,7 +52,7 @@ public class cuentafragment extends Fragment {
         id= cAuth.getCurrentUser().getUid();
         textBienve=(TextView)getView().findViewById(R.id.textBienv);
         dbRef= FirebaseDatabase.getInstance().getReference();
-        dbRef.child("Usuarios").addValueEventListener(new ValueEventListener() { /// AQUI SE OBTIENE EL EL NOMBRE DE LA CUENTA A TRAVES DE SU UID
+        /*dbRef.child("Usuarios").addValueEventListener(new ValueEventListener() { /// AQUI SE OBTIENE EL EL NOMBRE DE LA CUENTA A TRAVES DE SU UID
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -65,7 +65,7 @@ public class cuentafragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
         btnCerrar=(Button)getView().findViewById(R.id.btnCerrarSesion);
         btnCerrar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -14,11 +14,11 @@ import com.google.firebase.database.Query;
 
 public class Foro extends AppCompatActivity {
 
-    ListView lv;
-    FirebaseListAdapter adapter;
+    /*ListView lv;
+    //FirebaseListAdapter adapter;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    ///@Override
+    ////protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listadatos);
         lv = (ListView) findViewById(R.id.listdatos);
@@ -36,5 +36,5 @@ public class Foro extends AppCompatActivity {
         };
 
 
-    }
+    }*/
 }

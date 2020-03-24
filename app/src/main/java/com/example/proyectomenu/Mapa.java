@@ -10,6 +10,8 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +19,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.example.proyectomenu.fragments_nav.lineasfragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -45,12 +50,8 @@ public  class Mapa extends AppCompatActivity implements OnMapReadyCallback, Goog
     private DatabaseReference mDatabase;
     private ArrayList<Marker> tmpRealTimeMarkers = new ArrayList<>();
     private ArrayList<Marker> realTimeMarkers = new ArrayList<>();
-    private TextView txtTarifas;
-
-
-
-
-
+    TextView textView;
+    Button volver;
 
 
 
@@ -61,21 +62,12 @@ public  class Mapa extends AppCompatActivity implements OnMapReadyCallback, Goog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa);
 
-
         Toolbar toolbar =findViewById(R.id.toolbar);
         toolbar.setTitle("GRAN VALPARAÍSO S.A");
 
         setSupportActionBar(toolbar);
         toolbar.setSubtitle("LINEA 602");
 
-        // txtTarifas=findViewById(R.id.tarifas);
-
-        //txtTarifas.setOnClickListener(new View.OnClickListener() {
-        //  @Override
-        //public void onClick(View v) {
-        //  startActivity( new Intent(Mapa.this, popup.class));
-        //  }
-        //  });
 
 
 
@@ -95,12 +87,12 @@ public  class Mapa extends AppCompatActivity implements OnMapReadyCallback, Goog
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        countDownTimer();
+        countDownTimer();//declaración del contador que revisa el database
 
     }
 
 
-
+    //CONTADOR QUE PERMITE INGRESAR CADA CIERTO TIEMPO
     private void countDownTimer() {
         new CountDownTimer(5000, 1000) {
             @Override
@@ -121,8 +113,7 @@ public  class Mapa extends AppCompatActivity implements OnMapReadyCallback, Goog
     }
 
 
-
-
+    //REVISA LOS PERMISOS PARA ACCEDER A LA UBICACIÓN
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
@@ -151,6 +142,8 @@ public  class Mapa extends AppCompatActivity implements OnMapReadyCallback, Goog
 
         mMap = googleMap;
         mMap.getUiSettings().setMapToolbarEnabled(true);
+
+
         mDatabase.child("usuarios").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -159,6 +152,7 @@ public  class Mapa extends AppCompatActivity implements OnMapReadyCallback, Goog
                 //  marker.remove();
                 //}
 
+                //GENERA UN TIPO DE CAPTURA DE PANTALLA DEL CONJUNTO DE COORDENADAS DESDE LA BASE DE DATOS, PARA LUEGO INGRESAR POR SEPARADO A LA LATITUD Y LONGUIT
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
 
                     MapsPojo mp= snapshot.getValue(MapsPojo.class);
@@ -201,7 +195,7 @@ public  class Mapa extends AppCompatActivity implements OnMapReadyCallback, Goog
                 realTimeMarkers.clear();
                 realTimeMarkers.addAll(tmpRealTimeMarkers);
                 tmpRealTimeMarkers.clear();
-                countDownTimer();
+                countDownTimer();//LLAMAR AL COUNTDOWNATIMER PARA QUE VUELVA A OCURRIR EL DATASNAPSHOT
 
             }
 
@@ -210,6 +204,8 @@ public  class Mapa extends AppCompatActivity implements OnMapReadyCallback, Goog
 
             }
         });
+
+        //TODOS LAS COORDENADAS DE CADA PUNTO POR EL CUAL PASA EL TRAZO DEL RECORRIDO DE LA MICRO.
 
 
         LatLng Garita = new LatLng(-32.919046,-71.504013);
@@ -338,8 +334,10 @@ public  class Mapa extends AppCompatActivity implements OnMapReadyCallback, Goog
         LatLng Ref =new LatLng(-33.030601,-71.516666);
 
 
-
+        //ACCEDE A LA UBICACION ACTUAL DE LA PERSONA
         mMap.setMyLocationEnabled(true);
+
+
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
 
@@ -492,6 +490,8 @@ public  class Mapa extends AppCompatActivity implements OnMapReadyCallback, Goog
         return  true;
     }
 
+
+//ITEMS DEL TOOLBAR QUE APARECEN EN EL MAPA
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -500,19 +500,30 @@ public  class Mapa extends AppCompatActivity implements OnMapReadyCallback, Goog
 
 
         if (id==R.id.tarifas){
-            Intent Tarifas = new Intent(this, popup.class);
+
+            Intent Tarifas = new Intent(this, Popup2.class);
             startActivity(Tarifas);
         }
         if (id==R.id.volver){
-            Intent volver = new Intent(this, MainActivity.class);
-            startActivity(volver);
+            lineasfragment fragment=new lineasfragment();
+            FragmentManager fm=getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.lineasfragg,fragment,fragment.getTag()).commit();
+
 
         }
 
 
 
-        return true;
+
+
+            //Intent volver = new Intent(this, MainActivity.class);
+            //startActivity(volver);
+
+        return false;
     }
+
+
+
 
     @Override
     public boolean onMyLocationButtonClick() {

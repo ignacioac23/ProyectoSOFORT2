@@ -2,18 +2,19 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:id="@+id/lineasfragg">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,6 +38,17 @@
                 android:textFontWeight="600"
                 android:textSize="18sp"
                 app:fontFamily="sans-serif-medium" />
+
+            <Button
+                android:id="@+id/boton602"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/granvalpo"
+                android:drawableLeft="@mipmap/busbeige"
+                android:onClick="@string/boton602"
+                android:text=" 602    Playa Ancha-Con Con"
+                android:textAlignment="viewStart" />
 
             <Button
                 android:id="@+id/solymar1"
@@ -343,16 +355,7 @@
                 android:text=" 601    Playa Ancha-Gran Bretaña-Rotonda Con Con"
                 android:textAlignment="viewStart" />
 
-            <Button
-                android:id="@+id/boton602"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/granvalpo"
-                android:drawableLeft="@mipmap/busbeige"
-                android:onClick="boton602"
-                android:text=" 602    Playa Ancha-Con Con"
-                android:textAlignment="viewStart" />
+
 
             <Button
                 android:id="@+id/boton603"

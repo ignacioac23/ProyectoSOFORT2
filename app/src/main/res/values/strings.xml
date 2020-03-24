@@ -22,8 +22,7 @@
     <string name="Titulotarifa">TARIFAS LINEA 602</string>
     <string name="TarifaLocal">Tarifa Local: $540</string>
     <string name="TarifaDirecto">Tarifa Directo: $960</string>
-
-
+    <string name="title_activity_mapa22">Map</string>
 
 
 </resources>

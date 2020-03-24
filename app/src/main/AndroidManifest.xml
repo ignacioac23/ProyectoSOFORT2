@@ -43,6 +43,7 @@
         </activity>
         <activity android:name=".Menus" />
         <activity android:name=".Registro" />
+        <activity android:name=".Foro"/>
 
         <meta-data
             android:name="preloaded_fonts"

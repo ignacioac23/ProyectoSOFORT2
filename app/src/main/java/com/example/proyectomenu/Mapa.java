@@ -91,7 +91,6 @@ public  class Mapa extends AppCompatActivity implements OnMapReadyCallback, Goog
 
     }
 
-
     //CONTADOR QUE PERMITE INGRESAR CADA CIERTO TIEMPO
     private void countDownTimer() {
         new CountDownTimer(5000, 1000) {
